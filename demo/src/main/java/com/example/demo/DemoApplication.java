@@ -19,7 +19,7 @@ public class DemoApplication {
 	}
 
 	@GetMapping("/greeting")
-	public ResponseEntity greeting() {
+	public ResponseEntity<String> greeting() {
 		return ResponseEntity.status(200).body("Good afternoon");
 	}
 }
