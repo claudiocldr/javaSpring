@@ -18,4 +18,8 @@ public class DemoApplication {
 		return "Hello world!";
 	}
 
+	@GetMapping("/greeting")
+	public ResponseEntity greeting() {
+		return ResponseEntity.status(200).body("Good afternoon");
+	}
 }
