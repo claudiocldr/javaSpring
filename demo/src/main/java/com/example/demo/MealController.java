@@ -69,7 +69,7 @@ public class MealController {
         return ResponseEntity.ok("Meal updated");
     }
 
-    @DeleteMapping("/delete/meal/{name}")
+    @DeleteMapping("/delete/mealbyname/{name}")
     public ResponseEntity<String> deleteMealByName (@PathVariable String name)
     {
 //    for (Meal x : meals) {
@@ -82,6 +82,21 @@ public class MealController {
 
     return ResponseEntity.ok("piatto cancellato con successo");
     }
+
+    @DeleteMapping("/delete/mealbyprice/{price}")
+    public ResponseEntity<String> deleteMealByPrice (@PathVariable String price)
+    {
+//    for (Meal x : meals) {
+//        if (x.getPrice() > price ) {
+//            meals.remove(x);
+//        }
+//    }
+        // Entrambi i modi funzionano correttamente
+        meals.stream().filter(x ->  x.getPrice() > Double.parseDouble(price)).forEach(x-> meals.remove(x));
+
+        return ResponseEntity.ok("piatto cancellato con successo");
+    }
+
 
 }
 
