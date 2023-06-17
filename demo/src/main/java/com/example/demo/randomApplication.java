@@ -12,7 +12,7 @@ import java.util.Random;
 @RestController
 public class randomApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DemoApplication.class, args);
+        SpringApplication.run(com.example.demo.DemoApplication.class, args);
     }
 
     @GetMapping("/info")
