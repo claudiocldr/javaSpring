@@ -3,9 +3,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.DoubleBuffer;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,14 +16,14 @@ public class MealController {
     public static void main(String[] args) {
         SpringApplication.run(MealController.class, args); }
 
-    @GetMapping("get/meals")
+    @GetMapping("/meals")
     public ResponseEntity<List<Meal>> retrieveMeals() {
         return ResponseEntity.status(200).body(meals);
 
     }
 
     // mapping che ritorna una lista di meals dove ogni meal ha come nome la stringa passata come pathvariable
-    @GetMapping("get/meal/{name}")
+    @GetMapping("/meal/{name}")
     public ResponseEntity<List<Meal>> retrieveMealByName(@PathVariable String name) {
         List<Meal> mealsRetrieved = meals.stream().filter(x -> x.getName().equals(name)).collect(Collectors.toList());
         return ResponseEntity.ok().body(mealsRetrieved);
@@ -34,27 +31,27 @@ public class MealController {
 
 
     // Richiesta che ritorna tutti i piatti che contengono la string description
-    @GetMapping("get/description/{description}")
-    public ResponseEntity<List<Meal>> retrieveMealByDescription (@PathVariable String description)
+    @GetMapping("/meal/description-match/{phrase}")
+    public ResponseEntity<List<Meal>> retrieveMealByDescription (@PathVariable String phrase)
     {
-        List<Meal> mealsFilteredByDescription = meals.stream().filter(x -> x.getDescription().contains(description)).collect(Collectors.toList());
+        List<Meal> mealsFilteredByDescription = meals.stream().filter(x -> x.getDescription().contains(phrase)).collect(Collectors.toList());
         return ResponseEntity.ok(mealsFilteredByDescription);
     }
 
-    @GetMapping("get/byprice/{min}-{max}")
+    @GetMapping("/meal/price/{min}-{max}")
     public ResponseEntity<List<Meal>> retrieveMealByPriceRange (@PathVariable String min, @PathVariable String max)
     {
         List<Meal> mealsFilteredByPrice = meals.stream().filter(x -> x.getPrice() > Double.parseDouble(min) && x.getPrice() < Double.parseDouble(max)).toList();
         return ResponseEntity.ok(mealsFilteredByPrice);
     }
 
-    @PutMapping("/put/meal")
+    @PutMapping("/meal")
     public ResponseEntity<String> addMeal(@RequestBody Meal meal) {
         meals.add(meal);
         return ResponseEntity.ok("Meal added");
     }
 
-    @PostMapping("/post/meal")
+    @PostMapping("/meal/{name}")
     public ResponseEntity<String> updateMealByName (@RequestBody Meal meal) {
 //        for (Meal x : meals) {
 //            if(x.getName().equals(meal.getName())) {
@@ -69,7 +66,7 @@ public class MealController {
         return ResponseEntity.ok("Meal updated");
     }
 
-    @DeleteMapping("/delete/mealbyname/{name}")
+    @DeleteMapping("/meal/{name}")
     public ResponseEntity<String> deleteMealByName (@PathVariable String name)
     {
 //    for (Meal x : meals) {
@@ -83,7 +80,7 @@ public class MealController {
     return ResponseEntity.ok("piatto cancellato con successo");
     }
 
-    @DeleteMapping("/delete/mealbyprice/{price}")
+    @DeleteMapping("/meal/price/{price}")
     public ResponseEntity<String> deleteMealByPrice (@PathVariable String price)
     {
 //    for (Meal x : meals) {
@@ -96,6 +93,14 @@ public class MealController {
 
         return ResponseEntity.ok("piatto cancellato con successo");
     }
+
+    @PutMapping("/meal/{name}/price")
+    public ResponseEntity<String>  updatePriceByBodyPrice (@PathVariable String name, @RequestBody Meal meal)
+    {
+        meals.stream().filter(x -> x.getName().equals(name)).forEach(x -> x.setPrice(meal.getPrice()));
+        return ResponseEntity.ok("Meal updated");
+    }
+
 
 
 }
