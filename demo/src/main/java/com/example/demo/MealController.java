@@ -54,5 +54,17 @@ public class MealController {
         return ResponseEntity.ok("Meal added");
     }
 
+    @PostMapping("/post/meal")
+    public ResponseEntity<String> updateMealByName (@RequestBody Meal meal) {
+        for (Meal x : meals) {
+            if(x.getName().equals(meal.getName())) {
+                meals.remove(x);
+                meals.add(meal);
+            }
+        }
+
+        return ResponseEntity.ok("Meal updated");
+    }
+
 }
 
