@@ -56,12 +56,15 @@ public class MealController {
 
     @PostMapping("/post/meal")
     public ResponseEntity<String> updateMealByName (@RequestBody Meal meal) {
-        for (Meal x : meals) {
-            if(x.getName().equals(meal.getName())) {
-                meals.remove(x);
-                meals.add(meal);
-            }
-        }
+//        for (Meal x : meals) {
+//            if(x.getName().equals(meal.getName())) {
+//                meals.remove(x);
+//                meals.add(meal);
+//            }
+//        }
+        // Entrambi i modi funzionano correttamente
+        meals.stream().filter(x -> x.getName().equals(meal.getName())).forEach(x-> meals.remove(x));
+        meals.add(meal);
 
         return ResponseEntity.ok("Meal updated");
     }
