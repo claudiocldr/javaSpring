@@ -69,5 +69,19 @@ public class MealController {
         return ResponseEntity.ok("Meal updated");
     }
 
+    @DeleteMapping("/delete/meal/{name}")
+    public ResponseEntity<String> deleteMealByName (@PathVariable String name)
+    {
+//    for (Meal x : meals) {
+//        if (x.getName().equals(name)) {
+//            meals.remove(x);
+//        }
+//    }
+        // Entrambi i modi funzionano correttamente
+    meals.stream().filter(x -> x.getName().equals(name)).forEach(x -> meals.remove(x));
+
+    return ResponseEntity.ok("piatto cancellato con successo");
+    }
+
 }
 
