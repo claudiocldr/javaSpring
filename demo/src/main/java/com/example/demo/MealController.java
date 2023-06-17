@@ -48,5 +48,11 @@ public class MealController {
         return ResponseEntity.ok(mealsFilteredByPrice);
     }
 
+    @PutMapping("/post/meal")
+    public ResponseEntity<String> addMeal(@RequestBody Meal meal) {
+        meals.add(meal);
+        return ResponseEntity.ok("Meal added");
+    }
+
 }
 
