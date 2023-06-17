@@ -32,10 +32,7 @@ public class MealController {
         return ResponseEntity.ok().body(mealsRetrieved);
     }
 
-   // 1 - Annotate a new class with the @RestController annotation.
-    // 2 - Create a new endpoint "/meal/description-match/{phrase}" using the @GetMapping annotation.
-    // 3 - In the method, add a query parameter "description" using the @PathVariable annotation.
-    // 4 - Return a Meal object with the corresponding description.
+
     // Richiesta che ritorna tutti i piatti che contengono la string description
     @GetMapping("get/description/{description}")
     public ResponseEntity<List<Meal>> retrieveMealByDescription (@PathVariable String description)
