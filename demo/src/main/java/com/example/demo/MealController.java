@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.DoubleBuffer;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -41,6 +42,13 @@ public class MealController {
     {
         List<Meal> mealsFilteredByDescription = meals.stream().filter(x -> x.getDescription().contains(description)).collect(Collectors.toList());
         return ResponseEntity.ok(mealsFilteredByDescription);
+    }
+
+    @GetMapping("get/byprice/{min}-{max}")
+    public ResponseEntity<List<Meal>> retrieveMealByPriceRange (@PathVariable String min, @PathVariable String max)
+    {
+        List<Meal> mealsFilteredByPrice = meals.stream().filter(x -> x.getPrice() > Double.parseDouble(min) && x.getPrice() < Double.parseDouble(max)).toList();
+        return ResponseEntity.ok(mealsFilteredByPrice);
     }
 
 }
