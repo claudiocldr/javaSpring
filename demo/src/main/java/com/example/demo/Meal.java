@@ -1,9 +1,21 @@
 package com.example.demo;
 
+import jakarta.persistence.*;
+
+@Entity
 public class Meal {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column
+    private Integer meal_id;
+
+    @Column
     private String name;
+
+    @Column
     private Double price;
 
+    @Column
     private String description;
 
     public Meal(String name, Double price, String description) {
@@ -12,7 +24,8 @@ public class Meal {
         this.description = description;
     }
 
-
+    public Meal() {
+    }
 
     public String getName() {
         return name;
@@ -37,4 +50,10 @@ public class Meal {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public Integer getMeal_id() {
+        return meal_id;
+    }
 }
+
+
