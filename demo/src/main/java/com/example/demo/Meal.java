@@ -2,11 +2,12 @@ package com.example.demo;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Meal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private Integer meal_id;
 
     @Column
@@ -17,6 +18,9 @@ public class Meal {
 
     @Column
     private String description;
+
+    @OneToMany(mappedBy = "meal")
+    private List<Ingredient> ingredients;
 
     public Meal(String name, Double price, String description) {
         this.name = name;
