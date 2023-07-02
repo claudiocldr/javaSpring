@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 import com.example.demo.Meal;
+import com.example.demo.service.IngredientService;
 import com.example.demo.service.MealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -81,6 +82,15 @@ public class MealController {
     {
         Integer updatedRows = mealService.updateByPrice(price, meal);
         return ResponseEntity.ok("Le righe aggiornate sono: " + updatedRows);
+    }
+
+    public final static Double WINTER_TEMP = 20.00;
+
+    // get request che ritorna i piatti invernali solo se la temperatura corrente è inferiore alla costante WINTER_TEMP
+    @GetMapping("/meal/winter")
+    public ResponseEntity<List<Meal>> getWinterMeals(){
+       List<Meal> winterMeals =  mealService.getWinterMeals();
+       return ResponseEntity.ok().body(winterMeals);
     }
 
 }

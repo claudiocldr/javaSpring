@@ -1,7 +1,13 @@
 package com.example.demo.service;
 
 import com.example.demo.Ingredient;
+import com.example.demo.Meal;
 import com.example.demo.dao.IngredientRepository;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,4 +47,7 @@ public class IngredientService {
                 ingredient.getIsVegetarian(),
                 id);
     }
+
+
+
 }

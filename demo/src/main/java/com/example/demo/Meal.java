@@ -19,6 +19,9 @@ public class Meal {
     @Column
     private String description;
 
+    @Column
+    private Boolean isWinterMeal;
+
     @OneToMany(mappedBy = "meal")
     private List<Ingredient> ingredients;
 
@@ -57,6 +60,26 @@ public class Meal {
 
     public Integer getMeal_id() {
         return meal_id;
+    }
+
+    public void setMeal_id(Integer meal_id) {
+        this.meal_id = meal_id;
+    }
+
+    public Boolean getIsWinterMeal() {
+        return isWinterMeal;
+    }
+
+    public void setIsWinterMeal(Boolean summerMeal) {
+        isWinterMeal = summerMeal;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
 
